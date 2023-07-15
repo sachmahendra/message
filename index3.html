@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Graph and Calendar Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+         :root {
+            --chart-width: 40px;
+            --chart-height: 20px;
+        }
+        
+        canvas {
+            width: var(--chart-width);
+            height: var(--chart-height);
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Show a Date Control</h1>
+
+    <form>
+        <label for="birthday">Birthday:</label>
+        <input type="date" id="birthday" name="birthday">
+        <input type="submit">
+    </form>
+
+    <div>
+        <label for="chartWidth">Chart Width:</label>
+        <input type="range" id="chartWidth" name="chartWidth" min="100" max="800" step="100" onchange="updateChartSize()">
+
+        <label for="chartHeight">Chart Height:</label>
+        <input type="range" id="chartHeight" name="chartHeight" min="100" max="400" step="50" onchange="updateChartSize()">
+
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('myChart').getContext('2d');
+        let myChart;
+
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const selectedDate = document.getElementById('birthday').value;
+
+            // Process the selected date and update the chart data
+            updateChartData(selectedDate);
+        });
+
+        function updateChartData(selectedDate) {
+            // Example data
+            const data = [3, 9, 12, 15, 18, 21];
+
+            // Update chart data with the selected date
+            myChart.data.labels.push(selectedDate);
+            myChart.data.datasets[0].data.push(data[Math.floor(Math.random() * data.length)]);
+
+            // Update the chart
+            myChart.update();
+        }
+
+        function updateChartSize() {
+            const chartWidth = document.getElementById('chartWidth').value;
+            const chartHeight = document.getElementById('chartHeight').value;
+
+            // Update the CSS variables
+            document.documentElement.style.setProperty('--chart-width', chartWidth + 'px');
+            document.documentElement.style.setProperty('--chart-height', chartHeight + 'px');
+        }
+
+        // Initial chart configuration
+        const initialData = {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of Votes',
+                data: [3, 9, 12, 15, 18, 21],
+                borderWidth: 1
+            }]
+        };
+
+        // Create the chart
+        myChart = new Chart(ctx, {
+            type: 'bar',
+            data: initialData,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

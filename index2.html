@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Graph and Calendar Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        canvas {
+            width: 400px;
+            height: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Show a Date Control</h1>
+
+    <form>
+        <label for="birthday">Birthday:</label>
+        <input type="date" id="birthday" name="birthday">
+        <input type="submit">
+    </form>
+
+    <div>
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('myChart').getContext('2d');
+        let myChart;
+
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const selectedDate = document.getElementById('birthday').value;
+
+            // Process the selected date and update the chart data
+            updateChartData(selectedDate);
+        });
+
+        function updateChartData(selectedDate) {
+            // Example data
+            const data = [3, 9, 12, 15, 18, 21];
+
+            // Update chart data with the selected date
+            myChart.data.labels.push(selectedDate);
+            myChart.data.datasets[0].data.push(data[Math.floor(Math.random() * data.length)]);
+
+            // Update the chart
+            myChart.update();
+        }
+
+        // Initial chart configuration
+        const initialData = {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of Votes',
+                data: [3, 9, 12, 15, 18, 21],
+                borderWidth: 1
+            }]
+        };
+
+        // Create the chart
+        myChart = new Chart(ctx, {
+            type: 'bar',
+            data: initialData,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

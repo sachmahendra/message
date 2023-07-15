@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Graph and Calendar Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* CSS styles for the calendar */
+        
+        #birthday {
+            padding: 5px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        
+        input[type="submit"] {
+            padding: 5px 10px;
+            font-size: 16px;
+            border-radius: 4px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Show The Data With Date Control</h1>
+
+    <form>
+        <label for="birthday">select date:</label>
+        <input type="date" id="birthday" name="birthday">
+        <input type="submit">
+    </form>
+
+    <div>
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <script>
+        // JavaScript code for chart and data update goes here...
+    </script>
+</body>
+
+</html>

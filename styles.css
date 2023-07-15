@@ -1,0 +1,22 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.status {
+    margin-top: 20px;
+}
+
+.sensor-data {
+    margin-top: 20px;
+}
+
+.sensor-data ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sensor-data li {
+    margin-bottom: 10px;
+}
