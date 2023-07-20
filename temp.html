@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Body Temperature Sensor</title>
+</head>
+
+<body>
+    <h1>Body Temperature:</h1>
+    <p id="temperature">Loading...</p>
+
+    <script>
+        async function getTemperature() {
+            try {
+                const response = await fetch('http://localhost:3000/temperature'); // Replace with the server's endpoint for temperature data
+                const data = await response.json();
+                document.getElementById('temperature').innerText = `${data.temperature} °C`;
+            } catch (error) {
+                console.error('Error fetching temperature:', error);
+                document.getElementById('temperature').innerText = 'Error fetching temperature';
+            }
+        }
+
+        // Fetch temperature data every 5 seconds (you can adjust this interval as needed)
+        setInterval(getTemperature, 5000);
+    </script>
+</body>
+
+</html>

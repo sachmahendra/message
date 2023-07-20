@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Body Temperature Sensor</title>
+</head>
+
+<body>
+    <h1>Body Temperature:</h1>
+    <p id="temperature">Loading...</p>
+
+    <script>
+        async function getTemperature() {
+            try {
+                const response = await fetch('http://localhost:3000/temperature'); // Replace with the server's endpoint for temperature data
+                const data = await response.json();
+                document.getElementById('temperature').innerText = `${data.temperature} °C`;
+            } catch (error) {
+                console.error('Error fetching temperature:', error);
+                document.getElementById('temperature').innerText = 'Error fetching temperature';
+            }
+        }
+
+        // Fetch temperature data every 5 seconds (you can adjust this interval as needed)
+        setInterval(getTemperature, 5000);
+    </script>
+
+    <script>
+        const express = require('express');
+        const SerialPort = require('serialport'); // Use 'serialport' package to communicate with the microcontroller
+        const Readline = require('@serialport/parser-readline');
+
+        const app = express();
+        const port = 3000;
+        const serialPort = new SerialPort('YOUR_SERIAL_PORT_PATH', {
+            baudRate: 9600
+        }); // Replace 'YOUR_SERIAL_PORT_PATH' with the correct path for your microcontroller
+
+        const parser = new Readline();
+        serialPort.pipe(parser);
+
+        parser.on('data', (data) => {
+            const temperature = parseFloat(data);
+            // Store the temperature data in a variable or database to serve it via API
+        });
+
+        app.listen(port, () => {
+            console.log(`Server running on http://localhost:${port}`);
+        });
+    </script>
+</body>
+
+</html>
